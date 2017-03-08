@@ -1,0 +1,79 @@
+function [ x ] = cn( A, x, dt, solver )
+%CN Performs an implicit forward time step on the linear system of ode's
+% given by dx/dt = A*x using the Crank-Nicolson method:
+% 
+%	d/dt[x(t+dt/2)]	~	[x(t+dt) - x(t)]/dt + O(dt^2)
+% 
+%   =>	x(t+dt)     ~	x(t) + (dt/2)*(A*x(t+dt) + A*x(t))
+%       x(0)        =	x0
+%   
+%	=>	x(t+dt)     =	((2/dt)*I - A)^-1 * ((2/dt)*I + A) * x(t)
+
+%==========================================================================
+% Parse Inputs
+%==========================================================================
+if nargin < 4
+    solver	=	@mldivide;
+end
+
+%==========================================================================
+% Solve for x(t+dt) via the Crank-Nicholson Method
+%==========================================================================
+
+AL      =	(2/dt)*speye(m,m) - A;
+AR      =	(2/dt)*speye(m,m) + A;
+xnext	=   AR*x(:,jlast);
+xnext	=   AL\xnext;
+
+end
+
+function x = cn_dtmax( A, x0, T, dtmax )
+
+[m,n]       =   size(x0);
+x           =	zeros( m, n*length(T) );
+x(:,1:n)	=	x0;
+
+for ii = 2:length(T)
+    
+    jlast	=   (ii-2)*n+1:(ii-1)*n;
+    jnext	=   (ii-1)*n+1:ii*n;
+    
+    N       =   ceil((T(ii)-T(ii-1))/dtmax);
+    dt      =   (T(ii)-T(ii-1))/N;
+    
+    
+    for jj = 2:N
+        xnext	=   AR*xnext;
+        xnext	=   AL\xnext;
+    end
+    
+    x(:,jnext)	=   xnext;
+    
+end
+
+end
+
+function x = cn_iter( A, x0, T )
+
+maxiter	=   10;
+tol     =   1e-3;
+
+dtmax	=   min(diff(T))/2;
+xlast	=	cn_dtmax( A, x0, T, dtmax );
+
+dtmax	=   dtmax/5;
+x       =	cn_dtmax( A, x0, T, dtmax );
+
+iter	=   2;
+while max(abs(x(:)-xlast(:))) > tol && iter < maxiter
+    iter	=   iter + 1;
+    xlast	=   x;
+    dtmax	=   dtmax/5;
+    x       =	cn_dtmax( A, x0, T, dtmax );
+end
+
+end
+
+
+
+

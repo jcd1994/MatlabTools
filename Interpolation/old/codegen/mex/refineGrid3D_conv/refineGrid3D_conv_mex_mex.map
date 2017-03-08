@@ -1,0 +1,16 @@
+MEX {
+	global:
+		mexFunction;
+		emlrtMexFcnProperties;
+		refineGrid3D_conv;
+		emxEnsureCapacity;
+		emxFree_int32_T;
+		emxFree_real32_T;
+		emxInit_int32_T;
+		emxInit_real32_T;
+		refineGrid3D_conv_initialize;
+		refineGrid3D_conv_terminate;
+		refineGrid3D_conv_atexit;
+	local:
+		*;
+};
