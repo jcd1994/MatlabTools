@@ -1,8 +1,0 @@
-LIBRARY squareTensorField_mex.mexw64
-EXPORTS
-mexFunction
-emlrtMexFcnProperties
-squareTensorField
-squareTensorField_initialize
-squareTensorField_terminate
-squareTensorField_atexit

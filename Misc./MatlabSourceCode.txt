@@ -1,3 +1,0 @@
-Matlab Source code files for HUNDREDS of applications:
-
-http://people.sc.fsu.edu/~jburkardt/m_src/m_src.html
