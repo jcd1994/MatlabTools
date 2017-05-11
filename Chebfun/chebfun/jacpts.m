@@ -35,7 +35,7 @@ function [x, w, v] = jacpts(n, a, b, int, meth)
 % See also CHEBPTS, LEGPTS, LOBPTS, RADAUPTS, HERMPTS, LAGPTS, TRIGPTS, and
 % ULTRAPTS.
 
-% Copyright 2016 by The University of Oxford and The Chebfun Developers. See
+% Copyright 2017 by The University of Oxford and The Chebfun Developers. See
 % http://www.chebfun.org/ for Chebfun information.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -151,7 +151,6 @@ if ( n < 20 || (n < 100 && ~method_set) || strcmpi(method, 'rec') )
     
 elseif ( strcmpi(method, 'GW') )
     [x, w, v] = gw(n, a, b);  % GW  see [1]
-    w = w/sum(w);
     
 else
     [x, w, v] = asy(n, a, b); % HT  see [2]
