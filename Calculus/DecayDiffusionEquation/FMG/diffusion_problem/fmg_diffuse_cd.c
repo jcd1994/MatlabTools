@@ -13,7 +13,17 @@
  *  c: arbitrary real constant (scalar double)
  */
 
-#define USE_PARALLEL 0
+/* Simple aliases for input pointers */
+#define __x__  prhs[0]
+#define __h__  prhs[1]
+#define __D__  prhs[2]
+#define __f__  prhs[3]
+#define __c__  prhs[4]
+
+/* Simple aliases for output pointers */
+#define __dx__ plhs[0]
+
+#define USE_PARALLEL 1
 
 void fmg_diffuse3D( double *dxr, double *dxi, const double *xr, const double *xi, const double *fr, const double *fi, const double K, const double c, const mwSize *mSize );
 void fmg_diffuse4D( double *dxr, double *dxi, const double *xr, const double *xi, const double *fr, const double *fi, const double K, const double c, const mwSize *mSize );
@@ -22,33 +32,33 @@ void
 mexFunction(int nlhs, mxArray *plhs[], int nrhs, const mxArray *prhs[])
 {
     /* grid spacing h */
-    double h = (nrhs < 2) ? 1.0 : ((double*)mxGetData(prhs[1]))[0];
+    double h = (nrhs < 2) ? 1.0 : ((double*)mxGetData(__h__))[0];
     
     /* diffusion constant D */
-    double D = (nrhs < 3) ? 1.0 : ((double*)mxGetData(prhs[2]))[0];
+    double D = (nrhs < 3) ? 1.0 : ((double*)mxGetData(__D__))[0];
     
     /* Arbitrary real constant c */
-    const double c = (nrhs < 5) ? 1.0 : ((double*)mxGetData(prhs[4]))[0];
+    const double c = (nrhs < 5) ? 1.0 : ((double*)mxGetData(__c__))[0];
     
     /* Normalized and scaled diffusion constant K = c*D/h^2 */
     const double K = (c*D)/(h*h);
     
     /* input array size */
-    const mwSize  ndim  = mxGetNumberOfDimensions(prhs[0]);
-    const mwSize *mSize = mxGetDimensions(prhs[0]);
+    const mwSize  ndim  = mxGetNumberOfDimensions(__x__);
+    const mwSize *mSize = mxGetDimensions(__x__);
     
     /* complex input array */
-    const double *xr = (const double *)mxGetData(prhs[0]);
-    const double *xi = (const double *)mxGetImagData(prhs[0]);
+    const double *xr = (const double *)mxGetData(__x__);
+    const double *xi = (const double *)mxGetImagData(__x__);
     
     /* complex decay term */
-    const double *fr = (const double*)mxGetData(prhs[3]);
-    const double *fi = (const double*)mxGetImagData(prhs[3]);
+    const double *fr = (const double*)mxGetData(__f__);
+    const double *fi = (const double*)mxGetImagData(__f__);
     
     /* complex output array */
-    plhs[0] = mxCreateNumericArray(ndim, mSize, mxDOUBLE_CLASS, mxCOMPLEX);
-    double *dxr = (double*)mxGetData(plhs[0]);
-    double *dxi = (double*)mxGetImagData(plhs[0]);
+    __dx__ = mxCreateNumericArray(ndim, mSize, mxDOUBLE_CLASS, mxCOMPLEX);
+    double *dxr = (double*)mxGetData(__dx__);
+    double *dxi = (double*)mxGetImagData(__dx__);
         
     if( ndim == 3 ) {
         fmg_diffuse3D( dxr, dxi, xr, xi, fr, fi, K, c, mSize );
