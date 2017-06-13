@@ -1,1 +1,1 @@
-pdftops.exe
+pdftops

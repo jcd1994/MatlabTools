@@ -16,13 +16,14 @@ for ii = 1:n
     f  = randnc(size(x),'double');
     h  = rand;
     D  = rand;
-    y1 = fmg_diffuse(x,h,D,f);
-    y2 = fmg_diffuse_brute(x,h,D,f);
+    c  = 2*rand-1;
+    y1 = fmg_diffuse(x,h,D,f,c);
+    y2 = c * fmg_diffuse_brute(x,h,D,f);
     
-    c  = infnorm(y1-y2);
-    m  = infnorm(y1);
+    err  = infnorm(y1-y2);
+    maxy = infnorm(y1);
     try
-        assert( c < 10 * eps(m) );
+        assert( err < 10 * eps(maxy) );
     catch me
         keyboard;
         rethrow(me);
