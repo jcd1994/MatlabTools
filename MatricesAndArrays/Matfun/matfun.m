@@ -119,8 +119,8 @@ classdef matfun
             end
             
             if length(varargin) == 1 && isa(varargin{1},'struct')
-                [f,v]	=	deal( fieldnames(varargin{1}), struct2cell(varargin{1}) );
-                ops     =   reshape( [f,v].', [], 1 );
+                [u,v]	=	deal( fieldnames(varargin{1}), struct2cell(varargin{1}) );
+                ops     =   reshape( [u,v].', [], 1 );
                 F       =   set_op(F,ops{:});
                 return
             end
