@@ -8,10 +8,8 @@ function [ C, IA, IB ] = intersectabstol( A, B, abstol )
 % INTERSECTABSTOL(A(:),B(:),ABSTOL) in all cases.
 % 
 % NOTE: A(IA) and B(IA) are not guaranteed to be of the same size!
-% Consider, for example, A = 1:5, B = [1.01, 1.02, 1.03], ABSTOL = 0.05:
-
-% The results will be IA = 1, IB = [1;2;3], and thus A(IA) = 1 and B(IB) is
-% identically the original B.
+% Consider, for example, A = 1:5, B = [1.01, 1.02, 1.03], ABSTOL = 0.05;
+% this results in IA = 1, IB = [1;2;3], and thus A(IA) = [1] and B(IB) = B.
 
 absdiff = abs(bsxfun(@minus,A(:),B(:).'));
 
