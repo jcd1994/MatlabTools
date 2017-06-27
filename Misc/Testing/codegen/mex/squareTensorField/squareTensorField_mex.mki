@@ -1,0 +1,15 @@
+# Make settings for squareTensorField 
+COMPILER=lcc64
+COMPFLAGS= -nodeclspec -Zp8 -dll -c -I"C:\Users\Jonathan\DOWNLO~1\MATHWO~2\R2016a\sys\lcc64\lcc64\include64" -DMATLAB_MEX_FILE -noregistrylookup
+OPTIMFLAGS=-DNDEBUG
+DEBUGFLAGS=-g2
+LINKER=lcclnk64
+LINKFLAGS= -dll -L"C:\Users\Jonathan\DOWNLO~1\MATHWO~2\R2016a\sys\lcc64\lcc64\lib64" -L"C:\Users\Jonathan\DOWNLO~1\MATHWO~2\R2016a\extern\lib\win64\microsoft" -entry LibMain "squareTensorField_mex2.obj"
+LINKOPTIMFLAGS=-s
+LINKDEBUGFLAGS=
+MATLAB_ARCH=win64
+BORLAND=
+OMPFLAGS= 
+OMPLINKFLAGS= 
+EMC_COMPILER=lcc64
+EMC_CONFIG=optim
