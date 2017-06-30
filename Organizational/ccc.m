@@ -2,4 +2,5 @@
 
 close all force
 clear all
+clear classes
 clc
