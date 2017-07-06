@@ -1,23 +1,26 @@
-function h = plot_cylinders_in_box( p, v, r, BoxDims, BoxCenter, titlestr )
+function h = plot_cylinders_in_box( p, v, r, BoxDims, BoxCenter, titlestr, h, col, alpha )
 %PLOT_CYLINDERS_IN_BOX Plots the cylinderes defined by the [3xN] set of
 %points and directinos p and v and [1xN] radii r in the box defined by the
 %[3x1] vectors BoxDims and BoxCenter.
 
+if nargin < 9; alpha = 0.2; end;
+if nargin < 8; col = 'b'; end;
+if nargin < 7; h = figure; end
 if nargin < 6; titlestr = ''; end;
 
-h	=	figure; hold on
-fig	=	get(gcf,'Number');
+hold on
+fig	=	get(h,'Number');
 
 BoxBounds	=   [   BoxCenter(:)' - 0.5*BoxDims(:)'
                     BoxCenter(:)' + 0.5*BoxDims(:)' ];
 rectpatchPlot( BoxBounds, fig );
 
 for ii = 1:size(p,2)
-    cylinderPlot( p(:,ii), v(:,ii), r(ii), 2*norm(BoxDims), fig );
+    cylinderPlot( p(:,ii), v(:,ii), r(ii), 2*norm(BoxDims), fig, col, alpha );
 end
 
 axis image
-axis( BoxBounds(:)' )
+axis( 1.01 * BoxBounds(:)' )
 
 xlabel('x'); ylabel('y'); zlabel('z');
 if ~isempty( titlestr ); title( titlestr ); end;
