@@ -4,7 +4,7 @@
 #include <stdint.h>
 #include <omp.h>
 
-/* INFNORM_PAR_CD
+/* INFNORM
  *
  * INPUT ARGUMENTS
  *  x: input array (N-D real or complex, double or float array)

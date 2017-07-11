@@ -1,7 +1,6 @@
-#include "infnorm.h"
-#include "mex.h"
+#include "sum_kahan.h"
 
-/* INFNORM
+/* SUM_KAHAN
  *
  * INPUT ARGUMENTS
  *  x: input array (N-D complex double array)
@@ -20,41 +19,47 @@ void mexFunction(int nlhs, mxArray *plhs[], int nrhs, const mxArray *prhs[])
     const uint32_t n = (const uint32_t)mxGetNumberOfElements(__x__);
     
     /* declare input and output variables */
-    void *xr, *xi, *c;
+    void *xr, *xi, *cr, *ci;
     xr = mxGetData(__x__);
     xi = mxGetImagData(__x__);
     
     switch(mxGetClassID(__x__))
     {
         case mxDOUBLE_CLASS: /* Perform computation for a double array */
-            /* Initialize output variable */
-            __c__ = mxCreateNumericMatrix(1, 1, mxDOUBLE_CLASS, mxREAL);
-            c = (double*)mxGetData(__c__);
             
             /* Call real or complex function */
-            if(mxIsComplex(__x__))
-                c_infnorm( xr, xi, c, n );
-            else
-                f_infnorm( xr, c, n );
+            if(mxIsComplex(__x__)) {
+                __c__ = mxCreateNumericMatrix(1, 1, mxDOUBLE_CLASS, mxCOMPLEX);
+                cr = (double*)mxGetData(__c__);
+                ci = (double*)mxGetImagData(__c__);
+                c_sum_kahan( xr, xi, cr, ci, n );
+            } else {
+                __c__ = mxCreateNumericMatrix(1, 1, mxDOUBLE_CLASS, mxREAL);
+                cr = (double*)mxGetData(__c__);
+                f_sum_kahan( xr, cr, n );
+            }
             
             break;
             
         case mxSINGLE_CLASS: /* Perform computation for a single array */
-            /* Initialize output variable */
-            __c__ = mxCreateNumericMatrix(1, 1, mxSINGLE_CLASS, mxREAL);
-            c = (float*)mxGetData(__c__);
             
             /* Call real or complex function */
-            if(mxIsComplex(__x__))
-                c_infnorm_f( xr, xi, c, n );
-            else
-                f_infnorm_f( xr, c, n );
+            if(mxIsComplex(__x__)) {
+                __c__ = mxCreateNumericMatrix(1, 1, mxSINGLE_CLASS, mxCOMPLEX);
+                cr = (float*)mxGetData(__c__);
+                ci = (float*)mxGetImagData(__c__);
+                c_sum_kahan_f( xr, xi, cr, ci, n );
+            } else {
+                __c__ = mxCreateNumericMatrix(1, 1, mxSINGLE_CLASS, mxREAL);
+                cr = (float*)mxGetData(__c__);
+                f_sum_kahan_f( xr, cr, n );
+            }
             
             break;
             
         default:
             /* x is of some other class */
-            mexPrintf( "x is of class %s; infnorm supports only "
+            mexPrintf( "x is of class %s; sum_kahan supports only "
                     "real/complex float/double arrays.\n",
                     mxGetClassName(__x__));
     }
