@@ -132,9 +132,9 @@ void f_sum_kahan_f( float *x, float *out, const uint32_t n ) {
     for(i = 0; i < n; ++i) {
         float y = x[i] - drift; // So far, so good: drift is zero.
         float t = sum + y;      // Alas, sum is big, y small, so low-order digits of y are lost.
-        drift = (t - sum) - y;   // (t - sum) cancels the high-order part of y; subtracting y recovers negative (low part of y)
-        sum = t;                 // Algebraically, drift should always be zero. Beware overly-aggressive optimizing compilers!
-    }                            // Next time around, the lost low part will be added to y in a fresh attempt.
+        drift = (t - sum) - y;  // (t - sum) cancels the high-order part of y; subtracting y recovers negative (low part of y)
+        sum = t;                // Algebraically, drift should always be zero. Beware overly-aggressive optimizing compilers!
+    }                           // Next time around, the lost low part will be added to y in a fresh attempt.
     
     *out = sum;
     

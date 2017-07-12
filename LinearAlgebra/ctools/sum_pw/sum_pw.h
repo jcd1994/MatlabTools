@@ -1,5 +1,5 @@
-#ifndef _SUM_KAHAN_H_
-#define _SUM_KAHAN_H_
+#ifndef _SUM_PW_H_
+#define _SUM_PW_H_
 
 #include <math.h>
 #include <stdint.h>
@@ -7,7 +7,7 @@
 #include <pthread.h>
 #include "mex.h"
 
-/* SUM_KAHAN
+/* SUM_PW
  *
  * INPUT ARGUMENTS
  *  x: input array (N-D real or complex, double or float array)
@@ -21,8 +21,9 @@ void f_sum_pw_f( const float *x, float *out, const uint32_t n );
 void *f_sum_pw_entry( void *arguments );
 void *f_sum_pw_entry_f( void *arguments );
 
-#define SUM_KAHAN_USE_PARALLEL  1
-#define SUM_KAHAN_NUM_THREADS (omp_get_max_threads())
+#define SUM_PW_USE_PARALLEL 0
+#define SUM_PW_NUM_THREADS (omp_get_max_threads())
+#define SUM_PW_INLINE //inline
 
 #define N_BASE_CASE 512 /* Base case for recursion */
 
@@ -98,7 +99,7 @@ void *f_sum_pw_entry( void *arguments ) {
     f_sum_pw( args->x, args->out, args->n );
 }
 
-void f_sum_pw( const double *x, double *out , const uint32_t n ) {
+SUM_PW_INLINE void f_sum_pw( const double *x, double *out , const uint32_t n ) {
     
     double sum;
     
@@ -108,9 +109,9 @@ void f_sum_pw( const double *x, double *out , const uint32_t n ) {
         uint32_t i;
         sum = x[0];
         
-#if SUM_KAHAN_USE_PARALLEL
-#pragma omp parallel for num_threads(SUM_KAHAN_NUM_THREADS) private(x,i) reduction(+:sum)
-#endif /* SUM_KAHAN_USE_PARALLEL */
+#if SUM_PW_USE_PARALLEL
+#pragma omp parallel for num_threads(SUM_PW_NUM_THREADS) reduction(+:sum)
+#endif /* SUM_PW_USE_PARALLEL */
         for(i = 1; i < n; ++i)
             sum += x[i];
         
@@ -135,7 +136,7 @@ void *f_sum_pw_entry_f( void *arguments ) {
     f_sum_pw_f( args->x, args->out, args->n );
 }
 
-void f_sum_pw_f( const float *x, float *out, const uint32_t n ) {
+SUM_PW_INLINE void f_sum_pw_f( const float *x, float *out, const uint32_t n ) {
     
     float sum;
     
@@ -145,9 +146,9 @@ void f_sum_pw_f( const float *x, float *out, const uint32_t n ) {
         sum = x[0];
         uint32_t i;
         
-#if SUM_KAHAN_USE_PARALLEL
-#pragma omp parallel for num_threads(SUM_KAHAN_NUM_THREADS) private(x,i) reduction(+:sum)
-#endif /* SUM_KAHAN_USE_PARALLEL */
+#if SUM_PW_USE_PARALLEL
+#pragma omp parallel for num_threads(SUM_PW_NUM_THREADS) reduction(+:sum)
+#endif /* SUM_PW_USE_PARALLEL */
         for(i = 1; i < n; ++i)
             sum += x[i];
         
