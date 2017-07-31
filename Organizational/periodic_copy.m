@@ -14,10 +14,7 @@ end
 
 t0 = tic;
 while toc(t0) < timeout
-    tlap = tic;
-    while toc(tlap) < period
-        % do nothing
-    end
+    pause(period);
     copyfile(src,[dst,'/',datestr(now,30)]);
     copycount = copycount + 1;
     prnt(copycount);
