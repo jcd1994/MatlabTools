@@ -45,20 +45,21 @@ end
 
 errstr	=   'CylOrientation must be 0 (or ''random''), 1 (or ''aligned''), or 2 (or ''periodic'').';
 if isnumeric(CylOrientation)
-	CylOrientation	=   round(CylOrientation);
+	CylOrientation = round(CylOrientation);
     if ~( isscalar(CylOrientation) && any(CylOrientation == [0,1,2]) )
-        warning('Invalid cylinder orientation %d; defaulting to random',CylOrientation);
+        warning('Invalid cylinder orientation %d; defaulting to random', CylOrientation);
+        CylOrientation = 0;
     end
 elseif isa(CylOrientation, 'char')
     switch upper(CylOrientation)
+        case 'RANDOM'
+            CylOrientation  =   0;
         case 'ALIGNED'
             CylOrientation	=   1;
         case 'PERIODIC'
             CylOrientation	=   2;
-        otherwise % 'RANDOM'
-            if ~strcmpi(CylOrientation,'RANDOM')
-                warning('Invalid cylinder orientation %s; defaulting to random',CylOrientation);
-            end
+        otherwise
+            warning('Invalid cylinder orientation %s; defaulting to random', CylOrientation);
             CylOrientation	=   0;
     end
 else
