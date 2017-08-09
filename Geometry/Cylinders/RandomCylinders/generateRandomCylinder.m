@@ -79,8 +79,7 @@ if NumCylinders ~= n
     warning('Incorrect number of cylinders requested. Using numel(Radii)');
 end
 
-b	=   (   reshape( bsxfun(@minus, BoxDims(:)/2, r), ...
-            [3*numel(r),1] ) < 0	);
+b	=   ( reshape( bsxfun(@minus, BoxDims(:)/2, r), [], 1 ) < 0	);
 if any( b )
     inds	=   ( b(1:3:end) | b(2:3:end) | b(3:3:end) );
     error( ['A cylinder of radius %0.2f will not fit in a box of size ' ...
@@ -92,11 +91,11 @@ end
 %% Generate Cylinders
 switch CylOrientation
     case 0
-        [ p, v ] =	genRandCyl_RandomAngles( BoxDims(:), BoxCenter(:), r, n );
+        [ p, v ] =	GenCyl_Random( BoxDims(:), BoxCenter(:), r, n );
     case 1
-        [ p, v ] =	genRandCyl_AxisAligned( BoxDims(:), BoxCenter(:), r, n );
+        [ p, v ] =	GenCyl_AxisAligned( BoxDims(:), BoxCenter(:), r, n );
     case 2
-        [ p, v ] =	genRandCyl_Periodic( BoxDims(:), BoxCenter(:), r, n );
+        [ p, v ] =	GenCyl_Periodic( BoxDims(:), BoxCenter(:), r, n );
 end
 
 %% Plot Cylinders
@@ -111,13 +110,18 @@ end
 
 end
 
-function [p,v] = genRandCyl_RandomAngles( BoxDims, BoxCenter, r, n )
+function [p,v] = GenCyl_Random( BoxDims, BoxCenter, r, n )
 %% Cylinders with random orientations
 
+% % force positive z-component to avoid degeneracy
+% th      =	2 * pi * rand(1,n);
+% phi     =	acos( rand(1,n) );
+% v       =	[ cos(th).*sin(phi); sin(th).*sin(phi); cos(phi) ];
+
 % force positive z-component to avoid degeneracy
-th      =	2 * pi * rand(1,n);
-phi     =	acos( rand(1,n) );
-v       =	[ cos(th).*sin(phi); sin(th).*sin(phi); cos(phi) ];
+v = randn(3,n);
+v(3,:) = abs(v(3,:));
+v = bsxfun(@rdivide, v, sqrt(sum(v.^2,1)));
 
 if n == 1
     p	=	bsxfun( @plus,	BoxCenter(:),                   ...
@@ -132,7 +136,7 @@ end
 
 end
 
-function [p,v] = genRandCyl_AxisAligned( BoxDims, BoxCenter, r, n )
+function [p,v] = GenCyl_AxisAligned( BoxDims, BoxCenter, r, n )
 %% Axis aligned cylinders
 
 % random unit vectors in x, y, or z-directions
@@ -148,10 +152,10 @@ p(idx+xyz)	=   BoxCenter(xyz);
 
 end
 
-function [p,v] = genRandCyl_Periodic( BoxDims, BoxCenter, r, n )
+function [p,v] = GenCyl_Periodic( BoxDims, BoxCenter, r, n )
 
 warning( 'Periodic random cylinders not implemented yet. Using random.');
-[p,v] = genRandCyl_RandomAngles( BoxDims(:), BoxCenter(:), r, n );
+[p,v] = GenCyl_Random( BoxDims(:), BoxCenter(:), r, n );
 
 end
 
