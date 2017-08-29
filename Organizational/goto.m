@@ -16,7 +16,7 @@ end
 if nargin < 2
     LevelsUp = [];
 elseif isa( LevelsUp, 'char' )
-    LevelsUp    =   str2num( LevelsUp ); %#ok<ST2NM>
+    LevelsUp = str2num( LevelsUp ); %#ok<ST2NM>
     if ~( LevelsUp == round( LevelsUp ) && LevelsUp > 0 )
         LevelsUp = [];
     end
@@ -26,6 +26,11 @@ fid = exist( Destination, 'file' );
 
 switch fid
     case 2 % 'Destination' is an m-file
+        s	=	which( Destination, '-all' );
+        idx	=   get_user_choice( s, fid );
+        cd( fileparts( s{idx} ) );
+        
+    case 3 % 'Destination' is a mex-file
         s	=	which( Destination, '-all' );
         idx	=   get_user_choice( s, fid );
         cd( fileparts( s{idx} ) );
@@ -50,6 +55,9 @@ function idx = get_user_choice( s, fid )
 
 switch fid
     case 2
+        type	=   'file';
+        types	=   'files';
+    case 3
         type	=   'file';
         types	=   'files';
     case 7

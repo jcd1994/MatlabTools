@@ -1,15 +1,15 @@
+x_CURRENT_PATH_x = cd;
+[x_PATHSTR_x,~,~] = fileparts(which(mfilename));
+cd(x_PATHSTR_x);
+
 %==========================================================================
-% infinity norm of array
+% infinity norm of array (treats ND arrays as 1D)
 %==========================================================================
 
-% real/complex double version
 mex CFLAGS="-fexceptions -fPIC -fno-omit-frame-pointer -pthread -fopenmp" ...
     COPTIMFLAGS="-march=native -msse2 -msse3 -Ofast -flto -DNDEBUG" ...
     LDOPTIMFLAGS="-Ofast -flto" ...
-    -lgomp infnorm_cd.c
+    -lgomp infnorm.c
 
-% real/complex single version
-mex CFLAGS="-fexceptions -fPIC -fno-omit-frame-pointer -pthread -fopenmp" ...
-    COPTIMFLAGS="-march=native -msse2 -msse3 -Ofast -flto -DNDEBUG" ...
-    LDOPTIMFLAGS="-Ofast -flto" ...
-    -lgomp infnorm_cs.c
+cd(x_CURRENT_PATH_x);
+clear x_CURRENT_PATH_x x_PATHSTR_x

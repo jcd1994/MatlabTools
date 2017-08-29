@@ -1,5 +1,4 @@
-#include "infnorm.h"
-#include "mex.h"
+#include "infnorm.hpp"
 
 /* INFNORM
  *
@@ -32,10 +31,13 @@ void mexFunction(int nlhs, mxArray *plhs[], int nrhs, const mxArray *prhs[])
             c = (double*)mxGetData(__c__);
             
             /* Call real or complex function */
-            if(mxIsComplex(__x__))
-                c_infnorm( xr, xi, c, n );
-            else
-                f_infnorm( xr, c, n );
+            if(mxIsComplex(__x__)) {
+                VecXd vr((double*)xr,n), vi((double*)xi,n);
+                *(double*)c = infnorm(vr,vi);
+            } else {
+                VecXd vr((double*)xr,n);
+                *(double*)c = infnorm(vr);
+            }
             
             break;
             
@@ -45,18 +47,21 @@ void mexFunction(int nlhs, mxArray *plhs[], int nrhs, const mxArray *prhs[])
             c = (float*)mxGetData(__c__);
             
             /* Call real or complex function */
-            if(mxIsComplex(__x__))
-                c_infnorm_f( xr, xi, c, n );
-            else
-                f_infnorm_f( xr, c, n );
+            if(mxIsComplex(__x__)){
+                VecXf vr((float*)xr,n), vi((float*)xi,n);
+                *(float*)c = infnorm(vr,vi);
+            } else {
+                VecXf vr((float*)xr,n);
+                *(float*)c = infnorm(vr);
+            }
             
             break;
             
         default:
             /* x is of some other class */
             mexPrintf( "x is of class %s; infnorm supports only "
-                    "real/complex float/double arrays.\n",
-                    mxGetClassName(__x__));
+                       "real/complex float/double arrays.\n",
+                        mxGetClassName(__x__));
     }
     
     return;

@@ -1,12 +1,12 @@
 function test_infnorm
 %TEST_INFNORM Tests the function infnorm(x)
 
-n = 1000;
+n = 100;
 s = num2str(n);
-main_test([s,' real double'],n,true, 'double',5,[1,4]);
-main_test([s,' cplx double'],n,false,'double',5,[1,4]);
-main_test([s,' real single'],n,true, 'single',5,[1,4]);
-main_test([s,' cplx single'],n,false,'single',5,[1,4]);
+main_test([s,' real double'],n,true, 'double',50,[1,4]);
+main_test([s,' cplx double'],n,false,'double',50,[1,4]);
+main_test([s,' real single'],n,true, 'single',50,[1,4]);
+main_test([s,' cplx single'],n,false,'single',50,[1,4]);
 
 end
 

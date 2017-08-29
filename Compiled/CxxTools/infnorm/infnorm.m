@@ -1,33 +1,34 @@
-function c = infnorm(x)
-%INFNORM Computes max(abs(x(:))) for single/double complex/real arrays x.
+function c=infnorm(x)
+%INFNORM
 
-% infnorm is not compiled; compile it
-if isunix
-    build_infnorm;
-elseif ispc
-    build_infnorm_win;
-else
-    c = infnorm_brute(x);
-    return
-end
+currentpath = cd;
+cd(fileparts(mfilename('fullpath')));
 
-% call the built mex routine
-c = infnorm(x);
+build_infnorm;
+c=infnorm(x);
+
+cd(currentpath);
 
 end
 
-function c = infnorm_brute(x)
+function build_infnorm
 
-persistent isfirstcall
-if isempty(isfirstcall)
-    isfirstcall = true;
+pEigen = what('Eigen');
+pBlaze = what('blaze-3.2');
+libincludes = {['-I"',pEigen(1).path,'"'],['-I"',pBlaze(1).path,'"']};
+flags = '-O3 -mavx -mfma -DNDEBUG';
+if isunix; flags = [flags,' -lgomp']; end
+
+if ispc
+    CFLAGS = ['CFLAGS="-fexceptions -fPIC -fno-omit-frame-pointer -pthread ',flags,'"'];
+    COPTIMFLAGS = ['COPTIMFLAGS="-march=native -msse2 -msse3 -Ofast -flto -DNDEBUG ',flags,'"'];
+    LDOPTIMFLAGS = ['LDOPTIMFLAGS="-Ofast -flto ',flags,'"'];
+elseif isunix
+    CFLAGS = ['CFLAGS="-fexceptions -fPIC -fno-omit-frame-pointer -pthread -fopenmp ',flags,'"'];
+    COPTIMFLAGS = ['COPTIMFLAGS="-march=native -msse2 -msse3 -Ofast -flto -DNDEBUG ',flags,'"'];
+    LDOPTIMFLAGS = ['LDOPTIMFLAGS="-Ofast -flto ',flags,'"'];
 end
 
-if isfirstcall
-    warning('only unix and pc are supported; calculating directly using max(abs(x(:))).');
-    isfirstcall = false;
-end
-
-c = max(abs(x(:)));
+mex(CFLAGS,COPTIMFLAGS,LDOPTIMFLAGS,libincludes{:},'infnorm.cpp');
 
 end

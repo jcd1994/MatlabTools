@@ -1,0 +1,192 @@
+\form#0:$ 2000 \times 2000 $
+\form#1:$ 250 \times 250 $
+\form#2:$ 70 \times 70 $
+\form#3:$ 50 \times 50 $
+\form#4:$ 100 \times 100 $
+\form#5:$ 150 \times 150 $
+\form#6:$ 290 \times 290 $
+\form#7:$ 220 \times 220 $
+\form#8:$ 190 \times 190 $
+\form#9:$ 175 \times 175 $
+\form#10:$ 55 \times 55 $
+\form#11:$ 64 \times 64 $
+\form#12:$ 68 \times 68 $
+\form#13:$ 90 \times 90 $
+\form#14:$ 88 \times 88 $
+\form#15:$ 72 \times 72 $
+\form#16:$ 66 \times 66 $
+\form#17:$ 140 \times 140 $
+\form#18:$ N \times N $
+\form#19:$ O(N^3) $
+\form#20:$ O(N^2) $
+\form#21:$ 3 \times 3 $
+\form#22:$ A = \overline{A^T} $
+\form#23:$ A = A^T $
+\form#24:$ a_{ij} $
+\form#25:$ a_{ji} $
+\form#26:$ m \times n $
+\form#27:$[0..M-1]$
+\form#28:$[0..N-1]$
+\form#29:$ M \times N $
+\form#30:$ A+=B $
+\form#31:$ A-=B $
+\form#32:$ A\circ=B $
+\form#33:$ A*=B $
+\form#34:$ A*=s $
+\form#35:$ A/=s $
+\form#36:$ A=B*s $
+\form#37:\[\left(\begin{array}{*{5}{c}} 0 & 1 & 2 & \cdots & N-1 \\ N & N+1 & N+2 & \cdots & 2 \cdot N-1 \\ \vdots & \vdots & \vdots & \ddots & \vdots \\ M \cdot N-N & M \cdot N-N+1 & M \cdot N-N+2 & \cdots & M \cdot N-1 \\ \end{array}\right)\]
+\form#38:$ \vec{a}+=\vec{b} $
+\form#39:$ \vec{a}-=\vec{b} $
+\form#40:$ \vec{a}*=\vec{b} $
+\form#41:$ \vec{a}/=\vec{b} $
+\form#42:$ \vec{a}\times=\vec{b} $
+\form#43:$ \vec{a}*=s $
+\form#44:$ \vec{a}/=s $
+\form#45:$ \vec{a}=\vec{b}*s $
+\form#46:\[\left(\begin{array}{*{5}{c}} 0 & 1 & 2 & \cdots & N-1 \\ \end{array}\right)\]
+\form#47:\[\left(\begin{array}{*{5}{c}} l_{0,0} & 0 & 0 & \cdots & 0 \\ l_{1,0} & l_{1,1} & 0 & \cdots & 0 \\ l_{2,0} & l_{2,1} & l_{2,2} & \cdots & 0 \\ \vdots & \vdots & \vdots & \ddots & \vdots \\ l_{N,0} & l_{N,1} & l_{N,2} & \cdots & l_{N,N} \\ \end{array}\right).\]
+\form#48:$ 0 \times 0 $
+\form#49:$ 1 \times 1 $
+\form#50:\[\left(\begin{array}{*{5}{c}} 1 & 0 & 0 & \cdots & 0 \\ l_{1,0} & 1 & 0 & \cdots & 0 \\ l_{2,0} & l_{2,1} & 1 & \cdots & 0 \\ \vdots & \vdots & \vdots & \ddots & \vdots \\ l_{N,0} & l_{N,1} & l_{N,2} & \cdots & 1 \\ \end{array}\right).\]
+\form#51:\[\left(\begin{array}{*{5}{c}} 0 & 0 & 0 & \cdots & 0 \\ l_{1,0} & 0 & 0 & \cdots & 0 \\ l_{2,0} & l_{2,1} & 0 & \cdots & 0 \\ \vdots & \vdots & \vdots & \ddots & \vdots \\ l_{N,0} & l_{N,1} & l_{N,2} & \cdots & 0 \\ \end{array}\right).\]
+\form#52:\[\left(\begin{array}{*{5}{c}} u_{0,0} & u_{0,1} & u_{0,2} & \cdots & u_{0,N} \\ 0 & u_{1,1} & u_{1,2} & \cdots & u_{1,N} \\ 0 & 0 & u_{2,2} & \cdots & u_{2,N} \\ \vdots & \vdots & \vdots & \ddots & \vdots \\ 0 & 0 & 0 & \cdots & u_{N,N} \\ \end{array}\right).\]
+\form#53:\[\left(\begin{array}{*{5}{c}} 1 & u_{0,1} & u_{0,2} & \cdots & u_{0,N} \\ 0 & 1 & u_{1,2} & \cdots & u_{1,N} \\ 0 & 0 & 1 & \cdots & u_{2,N} \\ \vdots & \vdots & \vdots & \ddots & \vdots \\ 0 & 0 & 0 & \cdots & 1 \\ \end{array}\right).\]
+\form#54:\[\left(\begin{array}{*{5}{c}} 0 & u_{0,1} & u_{0,2} & \cdots & u_{0,N} \\ 0 & 0 & u_{1,2} & \cdots & u_{1,N} \\ 0 & 0 & 0 & \cdots & u_{2,N} \\ \vdots & \vdots & \vdots & \ddots & \vdots \\ 0 & 0 & 0 & \cdots & 0 \\ \end{array}\right).\]
+\form#55:\[\left(\begin{array}{*{5}{c}} aa & 0 & 0 & \cdots & 0 \\ 0 & bb & 0 & \cdots & 0 \\ 0 & 0 & cc & \cdots & 0 \\ \vdots & \vdots & \vdots & \ddots & 0 \\ 0 & 0 & 0 & 0 & xx \\ \end{array}\right)\]
+\form#56:\[\left(\begin{array}{*{5}{c}} 1 & 0 & 0 & \cdots & 0 \\ 0 & 1 & 0 & \cdots & 0 \\ 0 & 0 & 1 & \cdots & 0 \\ \vdots & \vdots & \vdots & \ddots & 0 \\ 0 & 0 & 0 & 0 & 1 \\ \end{array}\right)\]
+\form#57:$|\vec{a}|^2$
+\form#58:$|\vec{a}|$
+\form#59:\[\left(\begin{array}{*{3}{c}} 1 & 2 & 3 \\ 4 & 5 & 6 \\ \end{array}\right)\]
+\form#60:\[\left(\begin{array}{*{6}{c}} 1 & 2 & 3 & 4 & 5 & 6. \\ \end{array}\right)\]
+\form#61:\[\left(\begin{array}{*{6}{c}} 1 & 4 & 2 & 5 & 3 & 6. \\ \end{array}\right)\]
+\form#62:$ 2 \times 4 $
+\form#63:$ 4 \times 2 $
+\form#64:\[ \left(\begin{array}{*{4}{c}} 1 & 2 & 3 & 4 \\ 5 & 6 & 7 & 8 \\ \end{array}\right) \Longrightarrow \left(\begin{array}{*{2}{c}} 1 & 2 \\ 5 & 6 \\ x & x \\ x & x \\ \end{array}\right) \]
+\form#65:\[ \left(\begin{array}{*{2}{c}} 1 & 2 \\ \end{array}\right) \Longrightarrow \left(\begin{array}{*{4}{c}} 1 & 2 & x & x \\ \end{array}\right) \]
+\form#66:\[\left(\begin{array}{*{4}{c}} 0 & 1 & \cdots & N-1 \\ \end{array}\right)\]
+\form#67:\[ A = L \cdot L^{H}, \]
+\form#68:\[ A = L \cdot Q, \]
+\form#69:\[ A = P \cdot L \cdot U, \]
+\form#70:\[ A = L \cdot U \cdot P, \]
+\form#71:\[ A = Q \cdot L, \]
+\form#72:\[ A = Q \cdot R, \]
+\form#73:\[ A = R \cdot Q, \]
+\form#74:$ \vec{a}=\vec{b}^\perp $
+\form#75:$ \vec{a}^\perp \cdot b $
+\form#76:$ \vec{a} $
+\form#77:$ \vec{b} $
+\form#78:$ \vec{a} \cdot \vec{b} = 0 $
+\form#79:$[low..upp]$
+\form#80:$(low..upp]$
+\form#81:$ A=B+C $
+\form#82:$ A=B*C $
+\form#83:$ A=B \circ C $
+\form#84:$ A=B-C $
+\form#85:$ \vec{y}=A*\vec{x} $
+\form#86:$[0..\infty)$
+\form#87:$(0..\infty)$
+\form#88:$[min..max]$
+\form#89:$ e^x $
+\form#90:$ 2^x $
+\form#91:$ 10^x $
+\form#92:$[-1..1]$
+\form#93:$[1..\infty)$
+\form#94:$ A=B/s $
+\form#95:$ A = -B $
+\form#96:$ A=s*B $
+\form#97:$ \vec{a}=\vec{b}+\vec{c} $
+\form#98:$ \vec{a}=\vec{b} \times \vec{c} $
+\form#99:$[0..2]$
+\form#100:$ \vec{a}=\vec{b}/\vec{c} $
+\form#101:$ s=\vec{a}*\vec{b} $
+\form#102:$ \vec{a}=\vec{b}*\vec{c} $
+\form#103:$ A=\vec{b}*\vec{c}^T $
+\form#104:$ \vec{a}=\vec{b}-\vec{c} $
+\form#105:$ \vec{a}=\vec{b}/s $
+\form#106:$ \vec{a} = -\vec{b} $
+\form#107:$ \vec{a}=s*\vec{b} $
+\form#108:$|\vec{a}|=1$
+\form#109:$ \vec{a}=B*\vec{c} $
+\form#110:$[7..size]$
+\form#111:$ \vec{y}^T=\vec{x}^T*A $
+\form#112:$ \vec{y}^T+=\vec{x}^T*A $
+\form#113:$ \vec{y}^T-=\vec{x}^T*A $
+\form#114:$ \vec{y}^T*=\vec{x}^T*A $
+\form#115:$ \vec{y}^T/=\vec{x}^T*A $
+\form#116:$ A = P L U $
+\form#117:$ A = U D U^{T} $
+\form#118:$ A = L D L^{T} $
+\form#119:$ A = U D U^{H} $
+\form#120:$ A = L D L^{H} $
+\form#121:$ A = L L^H $
+\form#122:$ A = U^H U $
+\form#123:$v[j]$
+\form#124:\[ A * v[j] = lambda[j] * v[j], \]
+\form#125:$lambda[j]$
+\form#126:$u[j]$
+\form#127:\[ u[j]^{H} * A = lambda[j] * u[j]^{H}, \]
+\form#128:$u[j]^{H}$
+\form#129:\[ Q = H(k) . . . H(2) H(1) \texttt{, with k = min(m,n).} \]
+\form#130:\[ H(i) = I - tau \cdot v \cdot v^T, \]
+\form#131:\[ Q = H(k) ... H(2) H(1) \texttt{, with k = min(m,n).} \]
+\form#132:$ 3*n+1 $
+\form#133:\[ Q = H(1) H(2) . . . H(k) \texttt{, with k = min(m,n).} \]
+\form#134:\[ A = U \cdot S \cdot V, \]
+\form#135:$ A*X=B $
+\form#136:$(vl..vu]$
+\form#137:$ A^T*X=B $
+\form#138:$ A^H*X=B $
+\form#139:$ A^{T}*X=B $
+\form#140:$ A^{H}*X=B $
+\form#141:\[ A = U D U^{H} \texttt{ (if uplo = 'U'), or } A = L D L^{H} \texttt{ (if uplo = 'L'), } \]
+\form#142:$[0..n)$
+\form#143:$[0..m)$
+\form#144:$ Q $
+\form#145:$ Q^T $
+\form#146:\[ A = U^{T} U \texttt{ (if uplo = 'U'), or } A = L L^{T} \texttt{ (if uplo = 'L'), } \]
+\form#147:\[ A = U^{H} U \texttt{ (if uplo = 'U'), or } A = L L^{H} \texttt{ (if uplo = 'L'), } \]
+\form#148:\[ A = U D U^{T} \texttt{ (if uplo = 'U'), or } A = L D L^{T} \texttt{ (if uplo = 'L'), } \]
+\form#149:$ A*x=b $
+\form#150:$ A^{T}*x=b $
+\form#151:$ A^{H}*x=b $
+\form#152:$ Q^H $
+\form#153:$ A *x=b $
+\form#154:$ A^T*x=b $
+\form#155:$ A *X =B $
+\form#156:$ A^T*X =B $
+\form#157:$ A *X^T=B^T $
+\form#158:$ A^T*X^T=B^T $
+\form#159:$ A^H*x=b $
+\form#160:\[ trace(A) = a_{11} + a_{22} + ... + a_{nn} = \sum_{i=1}^{n} a_{ii} \]
+\form#161:$ \frac{1}{a} $
+\form#162:$ z = x + yi $
+\form#163:$ \frac{\overline{z}}{x^2+y^2} $
+\form#164:$ M \cdot N $
+\form#165:$[7..M \cdot N]$
+\form#166:$ N \cdot N $
+\form#167:$ n \times n $
+\form#168:\[ \left(\begin{array}{*{4}{c}} 1 & 0 & 3 & 0 \\ \end{array}\right) \]
+\form#169:\[ \left(\begin{array}{*{4}{c}} -1 & 0 & -3 & 0 \\ \end{array}\right) \]
+\form#170:$ 2 \times 3 $
+\form#171:$ s=(\vec{a},\vec{b}) $
+\form#172:\[\left(\begin{array}{*{5}{c}} 0 & 1 & 2 & \cdots & N-1 \\ \end{array}\right),\]
+\form#173:$ b = \left(\begin{array}{*{1}{c}} 1 \\ 2 \\ 3 \\ \end{array}\right)$
+\form#174:$ M3 = \left(\begin{array}{*{2}{c}} 3.1 & 6.4 \\ -0.9 & -1.2 \\ 4.8 & 0.6 \\ \end{array}\right)$
+\form#175:$\left(\begin{array}{*{3}{c}} 2 & 0 & 1 \\ 0 & 3 & 2 \\ \end{array}\right) \times \left(\begin{array}{*{2}{c}} 4 & 0 \\ 1 & 0 \\ 0 & 3 \\ \end{array}\right) = \left(\begin{array}{*{2}{c}} 8 & 3 \\ 3 & 6 \\ \end{array}\right)$
+\form#176:$ B = \left(\begin{array}{*{3}{c}} 1 & 2 & 3 \\ 4 & 5 & 6 \\ \end{array}\right)$
+\form#177:$ a_{ij} == a_{ji} $
+\form#178:$ a_{ij} == \overline{a_{ji}} $
+\form#179:\[\left(\begin{array}{*{5}{c}} l_{0,0} & 0 & 0 & \cdots & 0 \\ 0 & l_{1,1} & 0 & \cdots & 0 \\ 0 & 0 & l_{2,2} & \cdots & 0 \\ \vdots & \vdots & \vdots & \ddots & \vdots \\ 0 & 0 & 0 & \cdots & l_{N,N} \\ \end{array}\right).\]
+\form#180:$ a $
+\form#181:$ b $
+\form#182:\[ \left(\begin{array}{*{1}{c}} c_0 \\ c_1 \\ c_2 \\ \end{array}\right) = \left(\begin{array}{*{1}{c}} a_1 b_2 - a_2 b_1 \\ a_2 b_0 - a_0 b_2 \\ a_0 b_1 - a_1 b_0 \\ \end{array}\right). \]
+\form#183:$ \times $
+\form#184:$ [first,last) $
+\form#185:$[0..size-1]$
+\form#186:$ [0..max] $
+\form#187:$ [min..max] $
+\form#188:$ [0..1) $
+\form#189:$ M = x*N $
+\form#190:$ [0..\infty) $
+\form#191:$ B^x = N $

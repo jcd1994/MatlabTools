@@ -1,184 +1,62 @@
-#ifndef _INFNORM_H_
+#ifndef INFNORM_HPP
+#define INFNORM_HPP
 
+/* Disable debugging */
+#ifndef NDEBUG
+#define NDEBUG
+#endif
+
+#include "mex.h"
 #include <math.h>
 #include <stdint.h>
 #include <omp.h>
+#include <iostream>
+#include <Eigen/Dense>
+#include <blaze/Math.h>
 
-/* INFNORM
- *
- * INPUT ARGUMENTS
- *  x: input array (N-D real or complex, double or float array)
- *
- */
+#define INFNORM_EIGEN_ARRAYS //define for using Eigen arrays
+// #define INFNORM_BLAZE_ARRAYS //define for using blaze arrays
 
-#define INFNORM_USE_PARALLEL  1
-#define ABS2(x,y)  (x*x + y*y)
-#define MAX(x,y)   (x > y ? x : y)
-
-/**************************************************************************
- * Complex double infnorm
- *************************************************************************/
-
-void c_infnorm( double *xr, double *xi, double *c, const uint32_t n ) {
-    
-#if INFNORM_USE_PARALLEL
-    
-    uint32_t l;
-    double max = 0.0;
-    
-#pragma omp parallel private(l) shared(max) num_threads(omp_get_max_threads())
-    {
-        double priv_max = 0.0;
-#pragma omp for private(l) schedule(static)
-        for (l = 0; l < n; ++l) {
-            priv_max = MAX(ABS2(xr[l],xi[l]),priv_max);
-        }
-#pragma omp flush(max)
-        if (priv_max > max) {
-#pragma omp critical
-            max = MAX(max,priv_max);
-        }
-    }
-    
-#else
-    
-    uint32_t l;
-    double max = ABS2(xr[0],xi[0]);
-    
-    for(l = 1; l < n; ++l) {
-        max = MAX(ABS2(xr[l],xi[l]),max);
-    }
-    
+#ifdef INFNORM_EIGEN_ARRAYS
+/* Eigen typedefs */
+inline namespace Eigen {
+    typedef Map<ArrayXd> VecXd;
+    typedef Map<ArrayXf> VecXf;
+}
 #endif
-    
-    *c = sqrt(max);
-    return;
+
+#ifdef INFNORM_BLAZE_ARRAYS
+/* Blaze typedefs */
+inline namespace blaze {
+    using VecXd = CustomVector<double,aligned,unpadded,columnVector>;
+    using VecXf = CustomVector<float, aligned,unpadded,columnVector>;
+}
+#endif
+
+template <typename Derived>
+        inline auto infnorm(const Eigen::ArrayBase<Derived>& x)
+{
+    return x.abs().maxCoeff();
 }
 
-/**************************************************************************
- * Complex float infnorm
- *************************************************************************/
-
-void c_infnorm_f( float *xr, float *xi, float *c, const uint32_t n ) {
-    
-#if INFNORM_USE_PARALLEL
-    
-    uint32_t l;
-    float max = 0.0;
-    
-#pragma omp parallel private(l) shared(max) num_threads(omp_get_max_threads())
-    {
-        float tempc, priv_max = 0.0;
-#pragma omp for private(l,tempc) schedule(static)
-        for (l = 0; l < n; ++l) {
-            tempc = ABS2(xr[l],xi[l]);
-            priv_max = MAX(tempc,priv_max);
-        }
-#pragma omp flush(max)
-        if (priv_max > max) {
-#pragma omp critical
-            max = MAX(max,priv_max);
-        }
-    }
-    
-    *c = sqrt(max);
-    
-#else
-    
-    uint32_t l;
-    float max = ABS2(xr[0],xi[0]), tempc = 0.0;
-    
-    for(l = 1; l < n; ++l) {
-        tempc = ABS2(xr[l],xi[l]);
-        max   = MAX(tempc,max);
-    }
-    
-    *c = sqrt(max);
-    
-#endif
-    
-    return;
+template <typename Derived>
+        inline auto infnorm(const Eigen::ArrayBase<Derived>& xr,
+        const Eigen::ArrayBase<Derived>& xi)
+{
+    return sqrt((xr*xr+xi*xi).maxCoeff());
 }
 
-
-/**************************************************************************
- * Double infnorm
- *************************************************************************/
-
-void f_infnorm( double *x, double *c, const uint32_t n ) {
-    
-#if INFNORM_USE_PARALLEL
-    
-    uint32_t l;
-    double max = 0.0;
-    
-#pragma omp parallel private(l) shared(max) num_threads(omp_get_max_threads())
-    {
-        double priv_max = 0.0;
-#pragma omp for private(l) schedule(static)
-        for (l = 0; l < n; ++l) {
-            priv_max = MAX(fabs(x[l]),priv_max);
-        }
-#pragma omp flush(max)
-        if (priv_max > max) {
-#pragma omp critical
-            max = MAX(max,priv_max);
-        }
-    }
-    
-#else
-    
-    uint32_t l;
-    double max = fabs(x[0]);
-    
-    for(l = 1; l < n; ++l) {
-        max = MAX(fabs(x[l]),max);
-    }
-        
-#endif
-    
-    *c = max;
-    return;
+template <typename Derived, bool TF = blaze::defaultTransposeFlag>
+        inline auto infnorm(const blaze::DenseVector<Derived,TF>& x)
+{
+    return max(abs(x));
 }
 
-/**************************************************************************
- * Float infnorm
- *************************************************************************/
-
-void f_infnorm_f( float *x, float *c, const uint32_t n ) {
-    
-#if INFNORM_USE_PARALLEL
-    
-    uint32_t l;
-    float max = 0.0;
-    
-#pragma omp parallel private(l) shared(max) num_threads(omp_get_max_threads())
-    {
-        float priv_max = 0.0;
-#pragma omp for private(l) schedule(static)
-        for (l = 0; l < n; ++l) {
-            priv_max = MAX(fabs(x[l]),priv_max);
-        }
-#pragma omp flush(max)
-        if (priv_max > max) {
-#pragma omp critical
-            max = MAX(max,priv_max);
-        }
-    }
-    
-#else
-    
-    uint32_t l;
-    float max = fabs(x[0]);
-    
-    for(l = 1; l < n; ++l) {
-        max = MAX(fabs(x[l]),max);
-    }
-        
-#endif
-    
-    *c = max;
-    return;
+template <typename Derived, bool TF = blaze::defaultTransposeFlag>
+        inline auto infnorm(const blaze::DenseVector<Derived,TF>& xr,
+        const blaze::DenseVector<Derived,TF>& xi)
+{
+    return sqrt(max(xr*xr+xi*xi));
 }
 
-#endif
+#endif //INFNORM_HPP
