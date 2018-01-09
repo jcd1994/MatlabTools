@@ -36,7 +36,7 @@ if nargin < 7 || ( isempty(p0) || isempty(v0) || isempty(r0) )
     [p,v,~]	=   generateRandomCylinder( BoxDims, BoxCenter, r, [], CylOrientation, false );
     if PlotCylinders
         h	=	plot_cylinders_in_box( p, v, r, BoxDims, BoxCenter, ...
-            sprintf('Non-intersecting Cylinders: N = %d', n) );
+            sprintf('Cylinders: N = %d', n) );
         drawnow;
     else
         h	=   [];
