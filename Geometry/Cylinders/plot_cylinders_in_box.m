@@ -3,10 +3,10 @@ function h = plot_cylinders_in_box( p, v, r, BoxDims, BoxCenter, titlestr, h, co
 %points and directinos p and v and [1xN] radii r in the box defined by the
 %[3x1] vectors BoxDims and BoxCenter.
 
-if nargin < 9; alpha = 0.2; end;
-if nargin < 8; col = 'b'; end;
-if nargin < 7; h = figure; end
-if nargin < 6; titlestr = ''; end;
+if nargin < 9 || isempty(alpha);    alpha = 0.2; end;
+if nargin < 8 || isempty(col);      col = 'b'; end;
+if nargin < 7 || isempty(h);        h = figure; end
+if nargin < 6 || isempty(titlestr); titlestr = ''; end;
 
 hold on
 fig	=	get(h,'Number');
@@ -20,7 +20,7 @@ for ii = 1:size(p,2)
 end
 
 axis image
-axis( 1.01 * BoxBounds(:)' )
+axis( (1+1e-4) * BoxBounds(:)' )
 
 xlabel('x'); ylabel('y'); zlabel('z');
 if ~isempty( titlestr ); title( titlestr ); end;
