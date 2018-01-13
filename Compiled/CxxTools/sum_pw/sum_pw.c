@@ -57,6 +57,14 @@ void mexFunction(int nlhs, mxArray *plhs[], int nrhs, const mxArray *prhs[])
             
             break;
             
+        case mxLOGICAL_CLASS: /* Perform computation for a logical array */
+            
+            __c__ = mxCreateNumericMatrix(1, 1, mxDOUBLE_CLASS, mxREAL);
+            cr = (double*)mxGetData(__c__);
+            u8_sum_pw_u8( xr, cr, n );
+
+            break;
+            
         default:
             /* x is of some other class */
             mexPrintf( "x is of class %s; sum_pw supports only "
