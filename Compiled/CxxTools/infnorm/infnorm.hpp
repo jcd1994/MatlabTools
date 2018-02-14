@@ -40,8 +40,8 @@ template <typename Derived>
     omp_set_num_threads(omp_get_max_threads());
 //     auto n_req = omp_get_max_threads();
 //     Eigen::setNbThreads(n_req);
-    auto n_set = Eigen::nbThreads();
-    mexPrintf("n_set = %d\n",n_set);
+//     auto n_set = Eigen::nbThreads();
+//     mexPrintf("n_set = %d\n",n_set);
 //     return x.abs().maxCoeff();
     return (x.matrix()).template lpNorm<Infinity>();
 }
